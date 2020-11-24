@@ -130,8 +130,8 @@ int main(int argc, char* argv[])
 
 	//-----------------------------------------
 	typedef int* pint;	// typedef вводит новое имя (синоним) pint для существующего типа int*
-	pint* c;			// если не использовать pint, то пишем так:		int **c;
-	c = new pint[4];	//												c=new int*[4];
+	pint* c;			// если не использовать pint, то пишем так:	int **c;
+	c = new pint[4];	//											c=new int*[4];
 	c[0] = new int[4 * 5];
 	for (int i = 1; i < 4; i++)
 		c[i] = c[i - 1] + 5;
