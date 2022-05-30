@@ -6,7 +6,7 @@ using namespace std;
 void arr_in(int* arr, const int N)
 {
 	for (int i = 0; i < N; i++)
-		arr[i] = (int)(100 * rand() / RAND_MAX);  // èëè a[i] = (int)(rand()%100);
+		arr[i] = (int)(100 * rand() / RAND_MAX);  // Ð¸Ð»Ð¸ a[i] = (int)(rand()%100);
 }
 
 void arr_out(const int a[], const int n)
@@ -129,9 +129,9 @@ int main(int argc, char* argv[])
 	cout << '\n' << max << '\t' << min << "\n\n\n";
 
 	//-----------------------------------------
-	typedef int* pint;	// typedef ââîäèò íîâîå èìÿ (ñèíîíèì) pint äëÿ ñóùåñòâóþùåãî òèïà int*
-	pint* c;			// åñëè íå èñïîëüçîâàòü pint, òî ïèøåì òàê:	int **c;
-	c = new pint[4];	//											c=new int*[4];
+	typedef int* pint;	// typedef Ð²Ð²Ð¾Ð´Ð¸Ñ‚ Ð½Ð¾Ð²Ð¾Ðµ Ð¸Ð¼Ñ (ÑÐ¸Ð½Ð¾Ð½Ð¸Ð¼) pint Ð´Ð»Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ³Ð¾ Ñ‚Ð¸Ð¿Ð° int*
+	pint* c;		// ÐµÑÐ»Ð¸ Ð½Ðµ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ pint, Ñ‚Ð¾ Ð¿Ð¸ÑˆÐµÐ¼ Ñ‚Ð°Ðº:		int **c;
+	c = new pint[4];	//							c=new int*[4];
 	c[0] = new int[4 * 5];
 	for (int i = 1; i < 4; i++)
 		c[i] = c[i - 1] + 5;
