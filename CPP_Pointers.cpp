@@ -3,19 +3,19 @@
 #include <conio.h>
 using namespace std;
 
-void arr_in(int* arr, const int N)
+void arrayInput(int* array, const int N)
 {
 	for (int i = 0; i < N; i++)
-		arr[i] = (int)(100 * rand() / RAND_MAX);  // или a[i] = (int)(rand()%100);
+		array[i] = (int)(100 * rand() / RAND_MAX);  // или a[i] = (int)(rand()%100);
 }
 
-void arr_out(const int a[], const int n)
+void arrayOutput(const int a[], const int n)
 {
 	for (int i = 0; i < n; i++)
 		cout << a[i] << '\t';
 }
 
-void max_min(const int* a, const int n, int& max, int& min)
+void findMaxMin(const int* a, const int n, int& max, int& min)
 {
 	max = a[0];
 	min = a[0];
@@ -29,14 +29,14 @@ void max_min(const int* a, const int n, int& max, int& min)
 	}
 }
 
-void arr_in2(int* a, const int n, const int m)
+void arrayInput2(int* a, const int n, const int m)
 {
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 			a[i * m + j] = (int)(100 * rand() / RAND_MAX);
 }
 
-void arr_out2(const int a[][5], const int n, const int m)
+void arrayOutput2(const int a[][5], const int n, const int m)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -46,7 +46,7 @@ void arr_out2(const int a[][5], const int n, const int m)
 	}
 }
 
-void max_min2(int* a, const int n, const int m, int& max, int& min)
+void findMaxMin2(int* a, const int n, const int m, int& max, int& min)
 {
 	max = *a;	// *a <==> a[0]
 	min = *a;	// *a <==> a[0]
@@ -61,14 +61,14 @@ void max_min2(int* a, const int n, const int m, int& max, int& min)
 		}
 }
 
-void arr_in3(int** a, const int n, const int m)
+void arrayInput3(int** a, const int n, const int m)
 {
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 			a[i][j] = (int)(100 * rand() / RAND_MAX);
 }
 
-void arr_out3(int** matrix, const int n, const int m)
+void arrayOutput3(int** matrix, const int n, const int m)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -82,7 +82,6 @@ void arr_out3(int** matrix, const int n, const int m)
 
 int main(int argc, char* argv[])
 {
-	/*
 	int i = 1;
 	int j = 555;
 
@@ -106,43 +105,40 @@ int main(int argc, char* argv[])
 	cout << "*p1:" << *p1 << endl << "*p2:" << *p2 << endl; 	// 5  555
 	cout << "Adresses: " << endl << p1 << endl << p2 << endl;
 
-*/	
-//	_getch();
-
-	cout << RAND_MAX;
-	cout << endl << endl;
+	
+	_getch();
 
 	srand((unsigned)time(NULL));
 
 	int max, min, N = 10;
 	int* a = new int[N];
-	arr_in(a, N);
-	arr_out(a, N);
-	max_min(a, N, max, min);
+	arrayInput(a, N);
+	arrayOutput(a, N);
+	findMaxMin(a, N, max, min);
 	cout << '\n' << max << '\t' << min << "\n\n\n";
 	delete[]a; // to avoid MEMORY LEAK
 	//-----------------------------------------
 	int b[4][5];
-	arr_in2(&b[0][0], 4, 5);
-	arr_out2(b, 4, 5);
-	max_min2(&b[0][0], 4, 5, max, min);
+	arrayInput2(&b[0][0], 4, 5);
+	arrayOutput2(b, 4, 5);
+	findMaxMin2(&b[0][0], 4, 5, max, min);
 	cout << '\n' << max << '\t' << min << "\n\n\n";
 
 	//-----------------------------------------
-	typedef int* pint;	// typedef вводит новое имя (синоним) pint для существующего типа int*
-	pint* c;		// если не использовать pint, то пишем так:		int **c;
-	c = new pint[4];	//							c=new int*[4];
+	typedef int* pointerToInt;	// typedef вводит новое имя (синоним) pointerToInt для существующего типа int*
+	pointerToInt* c;		// если не использовать pointerToInt, то пишем так:		int **c;
+	c = new pointerToInt[4];	//							c=new int*[4];
 	c[0] = new int[4 * 5];
 	for (int i = 1; i < 4; i++)
 		c[i] = c[i - 1] + 5;
 
-	arr_in3(c, 4, 5);
-	arr_out3(c, 4, 5);
+	arrayInput3(c, 4, 5);
+	arrayOutput3(c, 4, 5);
 
 	delete c[0];
-	delete[]c;
+	delete []c;
 
-	cout << '\n';
+	cout << endl;
 	
 	return 0;
 }
