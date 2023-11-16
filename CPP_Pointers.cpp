@@ -86,11 +86,11 @@ int main(int argc, char* argv[])
 	int j = 555;
 
 	int* p1 = &i;
-	cout << p1 << endl;			// 00B3FAF0  
-	cout << *p1 << endl; 		// 1
+	cout << p1 << endl;					// 00B3FAF0  
+	cout << *p1 << endl; 				// 1
 
 	*p1 = 3;
-	cout << "i = " << i << endl; 			// 3
+	cout << "i = " << i << endl;		// 3
 
 	int* p2 = p1;
 	*p2 = 4;
@@ -98,14 +98,14 @@ int main(int argc, char* argv[])
 
 
 	i = 5;
-	cout << "Values: " << i << endl << *p1 << endl << *p2 << endl; 	// 5  5  5
+	cout << "Values: " << i << endl << *p1 << endl << *p2 << endl;		// 5  5  5
 	cout << "Adresses: " << &i << endl << p1 << endl << p2 << endl; 	// 5  5  5
 
 	p2 = &j;
-	cout << "*p1:" << *p1 << endl << "*p2:" << *p2 << endl; 	// 5  555
+	cout << "*p1:" << *p1 << endl << "*p2:" << *p2 << endl;				// 5  555
 	cout << "Adresses: " << endl << p1 << endl << p2 << endl;
 
-	
+
 	_getch();
 
 	srand((unsigned)time(NULL));
@@ -117,6 +117,7 @@ int main(int argc, char* argv[])
 	findMaxMin(a, N, max, min);
 	cout << '\n' << max << '\t' << min << "\n\n\n";
 	delete[]a; // to avoid MEMORY LEAK
+
 	//-----------------------------------------
 	int b[4][5];
 	arrayInput2(&b[0][0], 4, 5);
@@ -125,9 +126,9 @@ int main(int argc, char* argv[])
 	cout << '\n' << max << '\t' << min << "\n\n\n";
 
 	//-----------------------------------------
-	typedef int* pointerToInt;	// typedef вводит новое имя (синоним) pointerToInt для существующего типа int*
-	pointerToInt* c;		// если не использовать pointerToInt, то пишем так:		int **c;
-	c = new pointerToInt[4];	//							c=new int*[4];
+	typedef int* pointerToInt;	// typedef вводит новое имя (псевдоним) pointerToInt для существующего типа int*
+	pointerToInt* c;			// если не использовать pointerToInt, то пишем так:		int **c;
+	c = new pointerToInt[4];	//														c=new int*[4];
 	c[0] = new int[4 * 5];
 	for (int i = 1; i < 4; i++)
 		c[i] = c[i - 1] + 5;
@@ -136,9 +137,9 @@ int main(int argc, char* argv[])
 	arrayOutput3(c, 4, 5);
 
 	delete c[0];
-	delete []c;
+	delete[]c;
 
 	cout << endl;
-	
+
 	return 0;
 }
