@@ -128,8 +128,8 @@ int main(int argc, char* argv[])
 	//-----------------------------------------
 	int rows = 4, columns = 5;
 	typedef int* pointerToInt;	// typedef вводит новое имя (псевдоним) pointerToInt для существующего типа int*
-	pointerToInt* c;		// если не использовать pointerToInt, то пишем так:		int **c;
-	c = new pointerToInt[rows];	//								c=new int*[rows];
+	pointerToInt* c;			// если не использовать pointerToInt, то пишем так:		int **c;
+	c = new pointerToInt[rows];	//														c=new int*[rows];
 	c[0] = new int[rows * columns];
 	for (int i = 1; i < rows; i++)
 		c[i] = c[i - 1] + columns;
