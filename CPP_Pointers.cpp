@@ -9,18 +9,18 @@ void arrayInput(int* array, const int N)
 		array[i] = (int)(100 * rand() / RAND_MAX);  // или a[i] = (int)(rand()%100);
 }
 
-void arrayOutput(const int a[], const int n)
+void arrayOutput(const int a[], const int N)
 {
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < N; i++)
 		cout << a[i] << '\t';
 }
 
-void findMaxMin(const int* a, const int n, int& max, int& min)
+void findMaxMin(const int* a, const int N, int& max, int& min)
 {
 	max = a[0];
 	min = a[0];
 
-	for (int i = 1; i < n; i++)
+	for (int i = 1; i < N; i++)
 	{
 		if (a[i] > max)
 			max = a[i];
@@ -29,50 +29,50 @@ void findMaxMin(const int* a, const int n, int& max, int& min)
 	}
 }
 
-void arrayInput2(int* a, const int n, const int m)
+void arrayInput2(int* a, const int N, const int M)
 {
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++)
-			a[i * m + j] = (int)(100 * rand() / RAND_MAX);
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+			a[i * M + j] = (int)(100 * rand() / RAND_MAX);
 }
 
-void arrayOutput2(const int a[][5], const int n, const int m)
+void arrayOutput2(const int a[][5], const int N, const int M)
 {
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < N; i++)
 	{
-		for (int j = 0; j < m; j++)
+		for (int j = 0; j < M; j++)
 			cout << a[i][j] << '\t';
 		cout << '\n';
 	}
 }
 
-void findMaxMin2(int* a, const int n, const int m, int& max, int& min)
+void findMaxMin2(int* a, const int N, const int M, int& max, int& min)
 {
 	max = *a;	// *a <==> a[0]
 	min = *a;	// *a <==> a[0]
 
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++)
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
 		{
-			if (a[i * m + j] > max)
-				max = a[i * m + j];
-			if (a[i * m + j] < min)
-				min = a[i * m + j];
+			if (a[i * M + j] > max)
+				max = a[i * M + j];
+			if (a[i * M + j] < min)
+				min = a[i * M + j];
 		}
 }
 
-void arrayInput3(int** a, const int n, const int m)
+void arrayInput3(int** a, const int N, const int M)
 {
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++)
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
 			a[i][j] = (int)(100 * rand() / RAND_MAX);
 }
 
-void arrayOutput3(int** matrix, const int n, const int m)
+void arrayOutput3(int** matrix, const int N, const int M)
 {
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < N; i++)
 	{
-		for (int j = 0; j < m; j++)
+		for (int j = 0; j < M; j++)
 			cout << matrix[i][j] << "\t";
 		cout << "\n";
 	}
@@ -126,15 +126,16 @@ int main(int argc, char* argv[])
 	cout << '\n' << max << '\t' << min << "\n\n\n";
 
 	//-----------------------------------------
+	int rows = 4, columns = 5;
 	typedef int* pointerToInt;	// typedef вводит новое имя (псевдоним) pointerToInt для существующего типа int*
-	pointerToInt* c;			// если не использовать pointerToInt, то пишем так:		int **c;
-	c = new pointerToInt[4];	//														c=new int*[4];
-	c[0] = new int[4 * 5];
-	for (int i = 1; i < 4; i++)
-		c[i] = c[i - 1] + 5;
+	pointerToInt* c;		// если не использовать pointerToInt, то пишем так:		int **c;
+	c = new pointerToInt[rows];	//								c=new int*[rows];
+	c[0] = new int[rows * columns];
+	for (int i = 1; i < rows; i++)
+		c[i] = c[i - 1] + columns;
 
-	arrayInput3(c, 4, 5);
-	arrayOutput3(c, 4, 5);
+	arrayInput3(c, rows, columns);
+	arrayOutput3(c, rows, columns);
 
 	delete c[0];
 	delete[]c;
