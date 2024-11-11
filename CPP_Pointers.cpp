@@ -6,7 +6,7 @@ using namespace std;
 void arrayInput(int* array, const int N)
 {
 	for (int i = 0; i < N; i++)
-		array[i] = (int)(100 * rand() / RAND_MAX);  // или a[i] = (int)(rand()%100);
+		array[i] = (int)(100 * rand() / RAND_MAX);  // (int)(rand()%100);
 }
 
 void arrayOutput(const int a[], const int N)
@@ -46,7 +46,7 @@ void arrayOutput2(const int a[][5], const int N, const int M)
 	}
 }
 
-void findMaxMin2(int* a, const int N, const int M, int& max, int& min)
+void findMaxMin2(const int* a, const int N, const int M, int& max, int& min)
 {
 	max = *a;	// *a <==> a[0]
 	min = *a;	// *a <==> a[0]
@@ -86,16 +86,18 @@ int main(int argc, char* argv[])
 	int j = 555;
 
 	int* p1 = &i;
+	int* p2 = &j;
 	cout << p1 << endl;					// 00B3FAF0  
+	cout << p2 << endl;					// 00B3FAF4  
 	cout << *p1 << endl; 				// 1
+	cout << *p2 << endl; 				// 555
 
 	*p1 = 3;
 	cout << "i = " << i << endl;		// 3
-
-	int* p2 = p1;
+	
+	p2 = p1;
 	*p2 = 4;
 	cout << i << endl << *p1 << endl << *p2 << endl; 	// 4  4  4
-
 
 	i = 5;
 	cout << "Values: " << i << endl << *p1 << endl << *p2 << endl;		// 5  5  5
@@ -105,12 +107,12 @@ int main(int argc, char* argv[])
 	cout << "*p1:" << *p1 << endl << "*p2:" << *p2 << endl;				// 5  555
 	cout << "Adresses: " << endl << p1 << endl << p2 << endl;
 
-
 	_getch();
+	
 
 	srand((unsigned)time(NULL));
 
-	int max, min, N = 10;
+	int max, min, N = 15;
 	int* a = new int[N];
 	arrayInput(a, N);
 	arrayOutput(a, N);
@@ -126,11 +128,11 @@ int main(int argc, char* argv[])
 	cout << '\n' << max << '\t' << min << "\n\n\n";
 
 	//-----------------------------------------
-	int rows = 4, columns = 5;
+	int rows = 4, columns = 6;
 	typedef int* pointerToInt;	// typedef вводит новое имя (псевдоним) pointerToInt для существующего типа int*
 	pointerToInt* c;			// если не использовать pointerToInt, то пишем так:		int **c;
-	c = new pointerToInt[rows];	//														c=new int*[rows];
-	c[0] = new int[rows * columns];
+	c = new pointerToInt[rows];	//														c = new int*[rows];
+	c[0] = new int[rows * columns];  // rows * column of int type elements
 	for (int i = 1; i < rows; i++)
 		c[i] = c[i - 1] + columns;
 
