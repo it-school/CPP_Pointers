@@ -1,25 +1,29 @@
 #include "time.h"
 #include "iostream"
 #include <conio.h>
+#include <ctime>
 using namespace std;
 
-void arrayInput(int* array, const int N)
+// Ввод одномерного массива случайными числами
+static void arrayInput(int* array, const int N)
 {
 	for (int i = 0; i < N; i++)
-		array[i] = (int)(100 * rand() / RAND_MAX);  // (int)(rand()%100);
+		array[i] = rand() % 100;  // проще и читаемее, чем (int)(100 * rand() / RAND_MAX)
 }
 
-void arrayOutput(const int a[], const int N)
+// Вывод одномерного массива
+static void arrayOutput(const int a[], const int N)
 {
+	cout << "Массив (" << N << " элементов):\n";
 	for (int i = 0; i < N; i++)
 		cout << a[i] << '\t';
+	cout << endl;
 }
 
-void findMaxMin(const int* a, const int N, int& max, int& min)
+// Поиск максимума и минимума в одномерном массиве
+static void findMaxMin(const int* a, const int N, int& max, int& min)
 {
-	max = a[0];
-	min = a[0];
-
+	max = min = a[0];
 	for (int i = 1; i < N; i++)
 	{
 		if (a[i] > max)
@@ -29,47 +33,51 @@ void findMaxMin(const int* a, const int N, int& max, int& min)
 	}
 }
 
-void arrayInput2(int* a, const int N, const int M)
+// Ввод двумерного массива через указатель (один блок памяти)
+static void arrayInput2(int* a, const int N, const int M)
 {
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < M; j++)
-			a[i * M + j] = (int)(100 * rand() / RAND_MAX);
+	for (int i = 0; i < N * M; i++)
+		a[i] = rand() % 100;
 }
 
-void arrayOutput2(const int a[][5], const int N, const int M)
+// Вывод двумерного массива фиксированной ширины
+static void arrayOutput2(const int a[][5], const int N, const int M)
 {
+	cout << "Двумерный массив (" << N << "x" << M << "):\n";
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < M; j++)
 			cout << a[i][j] << '\t';
 		cout << '\n';
 	}
+	cout << endl;
 }
 
-void findMaxMin2(const int* a, const int N, const int M, int& max, int& min)
+// Поиск min/max в двумерном массиве, представленном в виде одного указателя
+static void findMaxMin2(const int* a, const int N, const int M, int& max, int& min)
 {
-	max = *a;	// *a <==> a[0]
-	min = *a;	// *a <==> a[0]
+	max = min = *a;	// *a <==> a[0]
+	for (int i = 0; i < N * M; i++)
+	{
+		if (a[i] > max)
+			max = a[i];
+		if (a[i] < min)
+			min = a[i];
+	}
+}
 
+// Ввод двумерного массива с раздельным выделением строк
+static void arrayInput3(int** a, const int N, const int M)
+{
 	for (int i = 0; i < N; i++)
 		for (int j = 0; j < M; j++)
-		{
-			if (a[i * M + j] > max)
-				max = a[i * M + j];
-			if (a[i * M + j] < min)
-				min = a[i * M + j];
-		}
+			a[i][j] = rand() % 100;
 }
 
-void arrayInput3(int** a, const int N, const int M)
+// Вывод двумерного массива через двойной указатель
+static void arrayOutput3(int** matrix, const int N, const int M)
 {
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < M; j++)
-			a[i][j] = (int)(100 * rand() / RAND_MAX);
-}
-
-void arrayOutput3(int** matrix, const int N, const int M)
-{
+	cout << "Двумерный массив через двойной указатель (" << N << "x" << M << "):\n";
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < M; j++)
@@ -79,70 +87,92 @@ void arrayOutput3(int** matrix, const int N, const int M)
 	cout << "\n";
 }
 
-
-int main(int argc, char* argv[])
+int main()
 {
-	int i = 1;
-	int j = 555;
+	setlocale(LC_ALL, "Russian");
+	srand(static_cast<unsigned>(time(nullptr)));
 
+	cout << "=== Демонстрация работы с указателями ===\n\n";
+
+	int i = 1, j = 555;
 	int* p1 = &i;
 	int* p2 = &j;
-	cout << p1 << endl;					// 00B3FAF0  
-	cout << p2 << endl;					// 00B3FAF4  
-	cout << *p1 << endl; 				// 1
-	cout << *p2 << endl; 				// 555
+
+	cout << "Адреса указателей:\n";
+	cout << "p1 -> " << p1 << "\n"		// 00B3FAF0
+		<< "p2 -> " << p2 << "\n\n";		// 00B3FAF4
+
+	cout << "Значения через указатели:\n"
+		<< "*p1 = " << *p1 << "\n"			// 1
+		<< "*p2 = " << *p2 << "\n\n";		// 555
+	_getch();
 
 	*p1 = 3;
-	cout << "i = " << i << endl;		// 3
-	
+	cout << "Изменяем *p1 = 3  >  i теперь равно " << i << "\n";
+	_getch();
+
 	p2 = p1;
 	*p2 = 4;
-	cout << i << endl << *p1 << endl << *p2 << endl; 	// 4  4  4
+	cout << "\nПосле присваивания p2 = p1 и *p2 = 4:\n";
+	cout << "i = " << i << "\t*p1 = " << *p1 << "\t*p2 = " << *p2 << "\n";	// 4  4  4
+	_getch();
 
 	i = 5;
-	cout << "Values: " << i << endl << *p1 << endl << *p2 << endl;		// 5  5  5
-	cout << "Adresses: " << &i << endl << p1 << endl << p2 << endl; 	// 5  5  5
+	cout << "\nПосле изменения i = 5:\n";
+	cout << "Значения: " << i << '\t' << *p1 << '\t' << *p2 << endl;			// 5  5  5
+	cout << "Адреса:\n" << &i << '\n' << p1 << '\n' << p2 << endl;
+	_getch();
 
 	p2 = &j;
-	cout << "*p1:" << *p1 << endl << "*p2:" << *p2 << endl;				// 5  555
-	cout << "Adresses: " << endl << p1 << endl << p2 << endl;
-
+	cout << "\nТеперь p2 снова указывает на j.\n";
+	cout << "*p1 = " << *p1 << "\t*p2 = " << *p2 << endl;							// 5  555
+	cout << "Адреса:\n" << p1 << '\n' << p2 << endl;
 	_getch();
-	
 
-	srand((unsigned)time(NULL));
-
+	//-----------------------------------------
+	cout << "\n=== Работа с одномерным массивом ===\n";
 	int max, min, N = 15;
 	int* a = new int[N];
 	arrayInput(a, N);
 	arrayOutput(a, N);
 	findMaxMin(a, N, max, min);
-	cout << '\n' << max << '\t' << min << "\n\n\n";
-	delete[]a; // to avoid MEMORY LEAK
+	cout << "\nMAX = " << max << "\tMIN = " << min << "\n";
+	delete[] a; // освобождаем память
+	_getch();
 
 	//-----------------------------------------
+	cout << "\n=== Работа с двумерным массивом (единый блок памяти) ===\n";
 	int b[4][5];
 	arrayInput2(&b[0][0], 4, 5);
 	arrayOutput2(b, 4, 5);
 	findMaxMin2(&b[0][0], 4, 5, max, min);
-	cout << '\n' << max << '\t' << min << "\n\n\n";
+	cout << "\nMAX = " << max << "\tMIN = " << min << "\n";
+	_getch();
 
 	//-----------------------------------------
+	cout << "\n=== Работа с двумерным массивом через массив указателей ===\n";
 	int rows = 4, columns = 6;
-	typedef int* pointerToInt;	// typedef РІРІРѕРґРёС‚ РЅРѕРІРѕРµ РёРјСЏ (РїСЃРµРІРґРѕРЅРёРј) pointerToInt РґР»СЏ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ С‚РёРїР° int*
-	pointerToInt* c;			// РµСЃР»Рё РЅРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ pointerToInt, С‚Рѕ РїРёС€РµРј С‚Р°Рє:		int **c;
-	c = new pointerToInt[rows];	//														c = new int*[rows];
-	c[0] = new int[rows * columns];  // rows * column of int type elements
+
+	typedef int* pointerToInt;      // typedef вводит новое имя (псевдоним) pointerToInt для существующего типа int*
+	pointerToInt* c;                // если не использовать pointerToInt, то пишем так: int **c;
+	c = new pointerToInt[rows];     // эквивалентно: c = new int*[rows];
+
+	// выделяем единый блок памяти для всех строк
+	c[0] = new int[rows * columns];
 	for (int i = 1; i < rows; i++)
 		c[i] = c[i - 1] + columns;
 
 	arrayInput3(c, rows, columns);
 	arrayOutput3(c, rows, columns);
 
-	delete c[0];
-	delete[]c;
+	findMaxMin2(&c[0][0], rows, columns, max, min);
+	cout << "\nMAX = " << max << "\tMIN = " << min << "\n";
 
-	cout << endl;
+	delete[] c[0];  // освобождаем единый блок
+	delete[] c;     // освобождаем массив указателей
+
+	cout << "\n=== Завершение работы программы ===\n";
+	_getch();
 
 	return 0;
 }
