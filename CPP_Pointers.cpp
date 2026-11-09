@@ -4,14 +4,22 @@
 #include <ctime>
 using namespace std;
 
-// ¬вод одномерного массива случайными числами
+/// <summary>
+/// ¬вод одномерного массива случайными числами
+/// </summary>
+/// <param name="array"></param>
+/// <param name="N"></param>
 static void arrayInput(int* array, const int N)
 {
 	for (int i = 0; i < N; i++)
 		array[i] = rand() % 100;  // проще и читаемее, чем (int)(100 * rand() / RAND_MAX)
 }
 
-// ¬ывод одномерного массива
+/// <summary>
+/// ¬ывод одномерного массива
+/// </summary>
+/// <param name="a"></param>
+/// <param name="N"></param>
 static void arrayOutput(const int a[], const int N)
 {
 	cout << "ћассив (" << N << " элементов):\n";
@@ -20,7 +28,13 @@ static void arrayOutput(const int a[], const int N)
 	cout << endl;
 }
 
-// ѕоиск максимума и минимума в одномерном массиве
+/// <summary>
+///  ѕоиск максимума и минимума в одномерном массиве
+/// </summary>
+/// <param name="a"></param>
+/// <param name="N"></param>
+/// <param name="max"></param>
+/// <param name="min"></param>
 static void findMaxMin(const int* a, const int N, int& max, int& min)
 {
 	max = min = a[0];
@@ -33,14 +47,24 @@ static void findMaxMin(const int* a, const int N, int& max, int& min)
 	}
 }
 
-// ¬вод двумерного массива через указатель (один блок пам€ти)
+/// <summary>
+/// ¬вод двумерного массива через указатель (один блок пам€ти)
+/// </summary>
+/// <param name="a"></param>
+/// <param name="N"></param>
+/// <param name="M"></param>
 static void arrayInput2(int* a, const int N, const int M)
 {
 	for (int i = 0; i < N * M; i++)
 		a[i] = rand() % 100;
 }
 
-// ¬ывод двумерного массива фиксированной ширины
+/// <summary>
+/// ¬ывод двумерного массива фиксированной ширины
+/// </summary>
+/// <param name="a"></param>
+/// <param name="N"></param>
+/// <param name="M"></param>
 static void arrayOutput2(const int a[][5], const int N, const int M)
 {
 	cout << "ƒвумерный массив (" << N << "x" << M << "):\n";
@@ -53,7 +77,14 @@ static void arrayOutput2(const int a[][5], const int N, const int M)
 	cout << endl;
 }
 
-// ѕоиск min/max в двумерном массиве, представленном в виде одного указател€
+/// <summary>
+/// ѕоиск min/max в двумерном массиве, представленном в виде одного указател€
+/// </summary>
+/// <param name="a"></param>
+/// <param name="N"></param>
+/// <param name="M"></param>
+/// <param name="max"></param>
+/// <param name="min"></param>
 static void findMaxMin2(const int* a, const int N, const int M, int& max, int& min)
 {
 	max = min = *a;	// *a <==> a[0]
@@ -66,7 +97,12 @@ static void findMaxMin2(const int* a, const int N, const int M, int& max, int& m
 	}
 }
 
-// ¬вод двумерного массива с раздельным выделением строк
+/// <summary>
+/// ¬вод двумерного массива с раздельным выделением строк
+/// </summary>
+/// <param name="a"></param>
+/// <param name="N"></param>
+/// <param name="M"></param>
 static void arrayInput3(int** a, const int N, const int M)
 {
 	for (int i = 0; i < N; i++)
@@ -74,7 +110,12 @@ static void arrayInput3(int** a, const int N, const int M)
 			a[i][j] = rand() % 100;
 }
 
-// ¬ывод двумерного массива через двойной указатель
+/// <summary>
+/// ¬ывод двумерного массива через двойной указатель
+/// </summary>
+/// <param name="matrix"></param>
+/// <param name="N"></param>
+/// <param name="M"></param>
 static void arrayOutput3(int** matrix, const int N, const int M)
 {
 	cout << "ƒвумерный массив через двойной указатель (" << N << "x" << M << "):\n";
