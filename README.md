@@ -1,1 +1,1 @@
-Simple example of using C-style pointers used for processing matrices in functions
+Simple example of using C++ pointers used for processing matrices in functions
